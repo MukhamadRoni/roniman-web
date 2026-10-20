@@ -1,0 +1,239 @@
+[
+  {
+    "slug": "e-voting",
+    "category": "web",
+    "language": "PHP",
+    "pushed_at": "2026-10-01T14:26:25Z",
+    "is_featured": true,
+    "tags": [
+      "CodeIgniter 3",
+      "Three.js",
+      "RFID / QR",
+      "Tailwind"
+    ],
+    "description": {
+      "id": "Platform e-voting untuk koperasi. Pemilih masuk lewat RFID, QR, atau NIK dengan pencegahan double-voting. Hasilnya tampil di panggung real count 3D, lengkap dengan undian doorprize untuk pemilih sah dan impor DPT dari Excel.",
+      "en": "E-voting platform for cooperatives. Voters check in by RFID, QR, or national ID with double-voting prevention. Results appear on a 3D real count stage, with a prize draw for valid voters and voter roll import from Excel."
+    },
+    "metrics": {
+      "id": [
+        [
+          "Input pemilih",
+          "RFID · QR · NIK"
+        ],
+        [
+          "Real count",
+          "tiap 10 detik"
+        ],
+        [
+          "Visual",
+          "Podium 3D WebGL"
+        ]
+      ],
+      "en": [
+        [
+          "Voter input",
+          "RFID · QR · ID"
+        ],
+        [
+          "Real count",
+          "every 10s"
+        ],
+        [
+          "Visual",
+          "3D WebGL podium"
+        ]
+      ]
+    },
+    "short_name": null,
+    "sort_order": 0,
+    "repo_url": "https://github.com/MukhamadRoni/e-voting",
+    "homepage": null
+  },
+  {
+    "slug": "RoVaultX",
+    "category": "web",
+    "language": "JavaScript",
+    "pushed_at": "2026-07-24T07:12:11Z",
+    "tags": [
+      "Browser extension",
+      "Web Crypto API"
+    ],
+    "description": {
+      "id": "Ekstensi browser password manager tanpa backend. Data dienkripsi dengan kunci dari master password, dilengkapi generator password dan impor/ekspor terenkripsi.",
+      "en": "Backend-free password manager browser extension. Data is encrypted with a key derived from a master password, with a password generator and encrypted import/export."
+    },
+    "short_name": null,
+    "is_featured": false,
+    "metrics": null,
+    "sort_order": 1,
+    "repo_url": "https://github.com/MukhamadRoni/RoVaultX",
+    "homepage": null
+  },
+  {
+    "slug": "RAG-Ujian-Generator",
+    "category": "data",
+    "language": "Python",
+    "pushed_at": "2026-07-04T12:32:15Z",
+    "tags": [
+      "FastAPI",
+      "LangChain",
+      "RAG",
+      "Docker"
+    ],
+    "description": {
+      "id": "API berbasis RAG yang membaca dokumen PDF lalu membuat soal pilihan ganda atau esai, lengkap dengan kunci jawaban, dalam format JSON yang konsisten.",
+      "en": "RAG-based API that reads PDF documents and generates multiple-choice or essay questions, with answer keys, in consistent JSON."
+    },
+    "short_name": null,
+    "is_featured": false,
+    "metrics": null,
+    "sort_order": 2,
+    "repo_url": "https://github.com/MukhamadRoni/RAG-Ujian-Generator",
+    "homepage": null
+  },
+  {
+    "slug": "prometheus-grafana",
+    "category": "auto",
+    "language": null,
+    "pushed_at": "2026-06-17T12:24:01Z",
+    "tags": [
+      "Prometheus",
+      "Grafana"
+    ],
+    "description": {
+      "id": "Konfigurasi monitoring dan visualisasi metrik dengan Prometheus dan Grafana.",
+      "en": "Monitoring and metrics visualization setup with Prometheus and Grafana."
+    },
+    "short_name": null,
+    "is_featured": false,
+    "metrics": null,
+    "sort_order": 3,
+    "repo_url": "https://github.com/MukhamadRoni/prometheus-grafana",
+    "homepage": null
+  },
+  {
+    "slug": "glk-web-app-golang-",
+    "category": "web",
+    "language": "HTML",
+    "pushed_at": "2026-06-14T11:32:50Z",
+    "tags": [
+      "Go Fiber",
+      "PostgreSQL",
+      "Redis"
+    ],
+    "description": {
+      "id": "Portal rekrutmen tutor LBB Gold Generation: aplikasi terpisah untuk pelamar dan admin, tes akademik berwaktu dengan autosave, dan unggah CV ke Google Drive.",
+      "en": "Tutor recruitment portal for LBB Gold Generation: separate applicant and admin apps, a timed academic test with autosave, and CV uploads to Google Drive."
+    },
+    "short_name": null,
+    "is_featured": false,
+    "metrics": null,
+    "sort_order": 4,
+    "repo_url": "https://github.com/MukhamadRoni/glk-web-app-golang-",
+    "homepage": null
+  },
+  {
+    "slug": "House-pricing-scarpping-uipath",
+    "category": "auto",
+    "language": null,
+    "pushed_at": "2022-10-17T13:35:15Z",
+    "tags": [
+      "UiPath",
+      "RPA",
+      "Web scraping"
+    ],
+    "description": {
+      "id": "Otomasi scraping data harga rumah menggunakan UiPath RPA.",
+      "en": "House price data scraping automated with UiPath RPA."
+    },
+    "short_name": null,
+    "is_featured": false,
+    "metrics": null,
+    "sort_order": 5,
+    "repo_url": "https://github.com/MukhamadRoni/House-pricing-scarpping-uipath",
+    "homepage": null
+  },
+  {
+    "slug": "FSB_Project_Churn",
+    "category": "data",
+    "language": "Jupyter Notebook",
+    "pushed_at": "2022-10-18T18:53:34Z",
+    "tags": [
+      "Machine Learning",
+      "Churn"
+    ],
+    "description": {
+      "id": "Final project bootcamp Fullstack Bangalore: model prediksi churn pelanggan e-commerce.",
+      "en": "Fullstack Bangalore bootcamp final project: an e-commerce customer churn prediction model."
+    },
+    "short_name": null,
+    "is_featured": false,
+    "metrics": null,
+    "sort_order": 6,
+    "repo_url": "https://github.com/MukhamadRoni/FSB_Project_Churn",
+    "homepage": null
+  },
+  {
+    "slug": "IDX_CreditRisk_VirIntern",
+    "category": "data",
+    "language": "Jupyter Notebook",
+    "pushed_at": "2022-09-17T21:01:56Z",
+    "tags": [
+      "Random Forest",
+      "470K rows"
+    ],
+    "description": {
+      "id": "Model random forest untuk klasifikasi risiko kredit dari 470 ribu baris data dengan akurasi 98%. Virtual internship ID/X Partners.",
+      "en": "Random forest model classifying credit risk on 470K rows with 98% accuracy. ID/X Partners virtual internship."
+    },
+    "short_name": null,
+    "is_featured": false,
+    "metrics": null,
+    "sort_order": 7,
+    "repo_url": "https://github.com/MukhamadRoni/IDX_CreditRisk_VirIntern",
+    "homepage": null
+  },
+  {
+    "slug": "Robot-UV-C-Arduino",
+    "category": "embedded",
+    "language": "C++",
+    "pushed_at": "2022-07-25T12:25:40Z",
+    "tags": [
+      "Arduino",
+      "Bluetooth",
+      "UV-C"
+    ],
+    "description": {
+      "id": "Robot line follower dengan lampu UV-C dan koneksi Bluetooth untuk sterilisasi laboratorium.",
+      "en": "Line follower robot with a UV-C lamp and Bluetooth connection for lab sterilization."
+    },
+    "short_name": null,
+    "is_featured": false,
+    "metrics": null,
+    "sort_order": 8,
+    "repo_url": "https://github.com/MukhamadRoni/Robot-UV-C-Arduino",
+    "homepage": null
+  },
+  {
+    "slug": "Embedded-System-Detection-for-Predict-Nutritional-Status-in-Toddlers-Neural-Network-Backpropagation",
+    "short_name": "Nutritional-Status-Toddlers-NN",
+    "category": "embedded",
+    "language": "C++",
+    "pushed_at": "2022-07-25T10:55:26Z",
+    "tags": [
+      "Arduino",
+      "Neural Network",
+      "Skripsi"
+    ],
+    "description": {
+      "id": "Sistem embedded berbasis Arduino dan sensor untuk memprediksi status gizi dan risiko stunting balita dengan neural network backpropagation. Proyek skripsi saya.",
+      "en": "Arduino and sensor based embedded system that predicts toddler nutritional status and stunting risk with a backpropagation neural network. My thesis project."
+    },
+    "is_featured": false,
+    "metrics": null,
+    "sort_order": 9,
+    "repo_url": "https://github.com/MukhamadRoni/Embedded-System-Detection-for-Predict-Nutritional-Status-in-Toddlers-Neural-Network-Backpropagation",
+    "homepage": null
+  }
+]

@@ -1,0 +1,51 @@
+# ── Secrets & environment ─────────────────────────────
+.env
+.env.*
+!.env.example
+*.local
+
+# ── Dependencies ─────────────────────────────────────
+node_modules/
+vendor/
+
+# ── Build output ─────────────────────────────────────
+frontend/dist/
+frontend/dist-ssr/
+backend/public/build/
+backend/public/hot
+backend/public/storage
+
+# ── Laravel runtime files ────────────────────────────
+backend/storage/*.key
+backend/storage/pail
+backend/storage/logs/*.log
+backend/bootstrap/cache/*.php
+backend/database/*.sqlite
+backend/database/*.sqlite-journal
+.phpunit.cache/
+.phpunit.result.cache
+auth.json
+
+# ── Logs ─────────────────────────────────────────────
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ── Editor & tooling ─────────────────────────────────
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.fleet/
+.zed/
+.nova/
+.phpactor.json
+*.swp
+.codegraph/
+.claude/
+
+# ── OS ───────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini

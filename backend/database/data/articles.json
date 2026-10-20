@@ -1,0 +1,61 @@
+[
+  {
+    "title": "Mengoptimalkan Query Oracle: Dari 12 Detik ke 0,8 Detik",
+    "lang": "id",
+    "platform": "Medium",
+    "published_at": "2026-09-28",
+    "read_minutes": 8,
+    "tags": [
+      "Oracle",
+      "Performance"
+    ],
+    "url": null,
+    "excerpt": "Studi kasus nyata: membaca explain plan, memilih index yang tepat, dan kapan sebaiknya menulis ulang subquery.",
+    "cover_code": "SELECT /*+ INDEX(t idx_trx_date) */\n  t.id, t.amount\nFROM trx t\nWHERE t.trx_date >= :start;",
+    "is_sample": true
+  },
+  {
+    "title": "Building a REST Layer for Legacy CodeIgniter Apps",
+    "lang": "en",
+    "platform": "dev.to",
+    "published_at": "2026-08-14",
+    "read_minutes": 6,
+    "tags": [
+      "PHP",
+      "API"
+    ],
+    "url": null,
+    "excerpt": null,
+    "cover_code": null,
+    "is_sample": true
+  },
+  {
+    "title": "Belajar RPA dari Hackathon: Otomatisasi yang Benar-benar Dipakai",
+    "lang": "id",
+    "platform": "Medium",
+    "published_at": "2026-07-02",
+    "read_minutes": 5,
+    "tags": [
+      "RPA"
+    ],
+    "url": null,
+    "excerpt": null,
+    "cover_code": null,
+    "is_sample": true
+  },
+  {
+    "title": "What Teaching C++ Taught Me About Writing Code",
+    "lang": "en",
+    "platform": "Hashnode",
+    "published_at": "2026-05-19",
+    "read_minutes": 7,
+    "tags": [
+      "C++",
+      "Teaching"
+    ],
+    "url": null,
+    "excerpt": null,
+    "cover_code": null,
+    "is_sample": true
+  }
+]

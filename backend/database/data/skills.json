@@ -1,0 +1,67 @@
+[
+  {
+    "key": "web",
+    "name": "Web & Backend",
+    "icon": "code",
+    "items": [
+      "PHP",
+      "CodeIgniter",
+      "Go Fiber",
+      "REST API",
+      "Oracle",
+      "PostgreSQL",
+      "Three.js"
+    ],
+    "sort_order": 0
+  },
+  {
+    "key": "data",
+    "name": "Data & AI",
+    "icon": "chart",
+    "items": [
+      "Python",
+      "FastAPI",
+      "LangChain · RAG",
+      "Random Forest",
+      "Neural Network",
+      "Power BI"
+    ],
+    "sort_order": 1
+  },
+  {
+    "key": "mobile",
+    "name": "Mobile",
+    "icon": "mobile",
+    "items": [
+      "Flutter",
+      "Dart",
+      "Google Apps Script"
+    ],
+    "sort_order": 2
+  },
+  {
+    "key": "auto",
+    "name": "Automation & Ops",
+    "icon": "spark",
+    "items": [
+      "RPA · UiPath",
+      "AI Builder",
+      "Prometheus",
+      "Grafana"
+    ],
+    "sort_order": 3
+  },
+  {
+    "key": "hardware",
+    "name": "Hardware & Network",
+    "icon": "chip",
+    "items": [
+      "C / C++",
+      "Arduino",
+      "Embedded",
+      "MikroTik",
+      "Debian"
+    ],
+    "sort_order": 4
+  }
+]

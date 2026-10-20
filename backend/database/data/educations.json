@@ -1,0 +1,50 @@
+[
+  {
+    "institution": "Universitas Brawijaya",
+    "period": "2018 – 2022",
+    "score": "3.60",
+    "score_max": "4.00",
+    "is_featured": true,
+    "description": {
+      "id": "S1 Teknik Komputer. Skripsi: prediksi status gizi dan risiko stunting balita dengan neural network (nilai A).",
+      "en": "B.Eng. in Computer Engineering. Thesis: predicting toddler nutritional status and stunting risk with a neural network (grade A)."
+    },
+    "sort_order": 0
+  },
+  {
+    "institution": "SMKN 4 Malang",
+    "period": "2015 – 2018",
+    "score": "88",
+    "score_max": "100",
+    "is_featured": false,
+    "description": {
+      "id": "Teknik Komputer dan Jaringan. Routing MikroTik, server Debian, dan subnetting.",
+      "en": "Computer and Network Engineering. MikroTik routing, Debian servers, and subnetting."
+    },
+    "sort_order": 1
+  },
+  {
+    "institution": "Fullstack Bangalore",
+    "period": "2022",
+    "score": null,
+    "score_max": null,
+    "is_featured": false,
+    "description": {
+      "id": "Bootcamp Data Science: statistik, Python, SQL, deep learning (TensorFlow, CV, NLP). Final project: prediksi churn e-commerce.",
+      "en": "Data Science bootcamp: statistics, Python, SQL, deep learning (TensorFlow, CV, NLP). Final project: e-commerce churn prediction."
+    },
+    "sort_order": 2
+  },
+  {
+    "institution": "ICStar Hackathon",
+    "period": "2022 – 2023",
+    "score": null,
+    "score_max": null,
+    "is_featured": false,
+    "description": {
+      "id": "Bootcamp dan kompetisi solusi otomasi proses bisnis dengan Robotic Process Automation.",
+      "en": "Bootcamp and competition building business process automation with Robotic Process Automation."
+    },
+    "sort_order": 3
+  }
+]

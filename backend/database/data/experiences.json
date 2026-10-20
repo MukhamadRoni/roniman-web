@@ -1,0 +1,156 @@
+[
+  {
+    "company": {
+      "id": "UBS Gold · Surabaya",
+      "en": "UBS Gold · Surabaya"
+    },
+    "role": {
+      "id": "Software Engineer",
+      "en": "Software Engineer"
+    },
+    "started_at": "2023-01-01",
+    "ended_at": null,
+    "is_featured": true,
+    "tags": [
+      "PHP",
+      "CodeIgniter",
+      "Oracle",
+      "MySQL",
+      "Flutter",
+      "Google Apps Script",
+      "Pascal"
+    ],
+    "highlights": {
+      "id": [
+        "Membangun dan merawat sistem untuk Materials, Chemical Research, R&D, Human Capital, Organization Development, QMS, dan Product Cost Accounting.",
+        "Merancang RESTful API untuk integrasi antar-sistem dan aplikasi.",
+        "Menerjemahkan desain Figma menjadi front-end yang responsif, dari perencanaan arsitektur sampai deployment.",
+        "Mengoptimasi query Oracle dan MySQL untuk performa sistem."
+      ],
+      "en": [
+        "Build and maintain systems for Materials, Chemical Research, R&D, Human Capital, Organization Development, QMS, and Product Cost Accounting.",
+        "Design RESTful APIs that integrate systems and applications.",
+        "Turn Figma designs into responsive front ends, from architecture planning to deployment.",
+        "Optimize Oracle and MySQL queries for system performance."
+      ]
+    },
+    "sort_order": 0
+  },
+  {
+    "company": {
+      "id": "LBB Gold Generation · Malang (WFA)",
+      "en": "LBB Gold Generation · Malang (WFA)"
+    },
+    "role": {
+      "id": "Instruktur Pemrograman (paruh waktu)",
+      "en": "Programming Instructor (part-time)"
+    },
+    "started_at": "2024-06-01",
+    "ended_at": "2025-08-31",
+    "is_featured": false,
+    "tags": [
+      "C++"
+    ],
+    "highlights": {
+      "id": [
+        "Mengajar C++ dari dasar sampai menengah: algoritma, struktur data, dan logika pemrograman. Menyusun materi, latihan, dan evaluasi."
+      ],
+      "en": [
+        "Taught C++ from basic to intermediate: algorithms, data structures, and programming logic. Built materials, exercises, and assessments."
+      ]
+    },
+    "sort_order": 1
+  },
+  {
+    "company": {
+      "id": "ID/X Partners",
+      "en": "ID/X Partners"
+    },
+    "role": {
+      "id": "Data Scientist · Virtual Internship",
+      "en": "Data Scientist · Virtual Internship"
+    },
+    "started_at": "2022-08-01",
+    "ended_at": "2022-09-30",
+    "is_featured": false,
+    "tags": [],
+    "highlights": {
+      "id": [
+        "Model random forest untuk klasifikasi risiko kredit dari 470 ribu baris data, akurasi 98%."
+      ],
+      "en": [
+        "Random forest model classifying credit risk on 470K rows of data, with 98% accuracy."
+      ]
+    },
+    "sort_order": 2
+  },
+  {
+    "company": {
+      "id": "PTPN XII",
+      "en": "PTPN XII"
+    },
+    "role": {
+      "id": "Procurement Admin Support Intern",
+      "en": "Procurement Admin Support Intern"
+    },
+    "started_at": "2021-10-01",
+    "ended_at": "2022-03-31",
+    "is_featured": false,
+    "tags": [],
+    "highlights": {
+      "id": [
+        "Aplikasi web arsip dokumen administrasi dan pengadaan, dengan ekspor PDF/Excel."
+      ],
+      "en": [
+        "Web app for archiving administrative and procurement documents, with PDF/Excel export."
+      ]
+    },
+    "sort_order": 3
+  },
+  {
+    "company": {
+      "id": "Balai Penelitian Tanaman Pemanis dan Serat",
+      "en": "Indonesian Sweetener and Fiber Crops Research Institute"
+    },
+    "role": {
+      "id": "Embedded System Engineer Intern",
+      "en": "Embedded System Engineer Intern"
+    },
+    "started_at": "2021-06-01",
+    "ended_at": "2021-08-31",
+    "is_featured": false,
+    "tags": [],
+    "highlights": {
+      "id": [
+        "Robot line follower dengan lampu UV-C dan kontrol Bluetooth untuk sterilisasi laboratorium."
+      ],
+      "en": [
+        "Line follower robot with a UV-C lamp and Bluetooth control for lab sterilization."
+      ]
+    },
+    "sort_order": 4
+  },
+  {
+    "company": {
+      "id": "PT Biometrik Citra Solusi (Fingerspot)",
+      "en": "PT Biometrik Citra Solusi (Fingerspot)"
+    },
+    "role": {
+      "id": "Technician Intern",
+      "en": "Technician Intern"
+    },
+    "started_at": "2016-11-01",
+    "ended_at": "2017-11-30",
+    "is_featured": false,
+    "tags": [],
+    "highlights": {
+      "id": [
+        "Instalasi, perbaikan, dan QC mesin absensi serta door lock, plus pelatihan pengguna."
+      ],
+      "en": [
+        "Installed, repaired, and QC'd attendance and door lock machines, and trained users."
+      ]
+    },
+    "sort_order": 5
+  }
+]
