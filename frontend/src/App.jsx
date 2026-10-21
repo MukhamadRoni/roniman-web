@@ -1,5 +1,6 @@
-import { useCallback, useEffect, useState } from 'react'
+import { Suspense, useCallback, useEffect, useState } from 'react'
 import { api } from './lib/api.js'
+import { PROJECT_PAGES, projectSlugFromPath } from './pages/index.js'
 import { useLang } from './hooks/useLang.js'
 import { useReveal } from './hooks/useReveal.js'
 import Nav from './components/Nav.jsx'
@@ -16,6 +17,8 @@ import Loader from './components/Loader.jsx'
 
 export default function App() {
   const { lang, setLang, t } = useLang()
+  // Project pages are reached by a full page load, so the URL is read once.
+  const [pageSlug] = useState(projectSlugFromPath)
   const [data, setData] = useState(null)
   const [error, setError] = useState(null)
 
@@ -30,6 +33,8 @@ export default function App() {
   // Intro animation classes are only needed for the first render of the page.
   useEffect(() => {
     if (!data) return
+    // Sections render after the data arrives, so jump to "/id#projects"-style links here.
+    if (window.location.hash) document.getElementById(window.location.hash.slice(1))?.scrollIntoView()
     const timer = setTimeout(() => document.body.classList.remove('intro'), 2600)
     return () => clearTimeout(timer)
   }, [data])
@@ -37,6 +42,20 @@ export default function App() {
   if (!data) return <Loader error={error} onRetry={load} t={t} />
 
   const { profile, projects, articles, experiences, educations, skills } = data
+
+  if (pageSlug) {
+    const Page = PROJECT_PAGES[pageSlug]
+    return (
+      <>
+        <Nav lang={lang} setLang={setLang} t={t} home={`/${lang}`} />
+        <Suspense fallback={<Loader t={t} />}>
+          <Page project={projects.find((p) => p.slug === pageSlug)} lang={lang} t={t} />
+        </Suspense>
+        <Footer contact={profile.contact} name={profile.name} t={t} />
+      </>
+    )
+  }
+
   const latestProject = [...projects].sort((a, b) => (b.pushed_at || '').localeCompare(a.pushed_at || ''))[0]
 
   return (

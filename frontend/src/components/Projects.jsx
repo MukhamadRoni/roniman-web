@@ -1,14 +1,17 @@
 import { useState } from 'react'
-import { ArrowUpRight, Code, GitHub } from './Icons.jsx'
+import { ArrowRight, ArrowUpRight, Code, GitHub } from './Icons.jsx'
+import { PROJECT_PAGES, projectPath } from '../pages/index.js'
 import { daysSince, timeAgo } from '../lib/format.js'
 
-const CATEGORIES = ['all', 'web', 'data', 'auto', 'embedded']
+const CATEGORIES = ['all', 'web', 'data', 'auto', 'embedded', 'desktop']
 const LANG_COLORS = {
   Python: '#3572A5', PHP: '#4F5D95', 'C++': '#f34b7d', JavaScript: '#f1e05a', TypeScript: '#3178c6',
   'Jupyter Notebook': '#DA5B0B', HTML: '#e34c26', Go: '#00ADD8', Dart: '#00B4AB',
 }
 
 function ProjectCard({ project: p, lang, t }) {
+  // Projects with a showcase page link there; the rest go straight to GitHub.
+  const page = PROJECT_PAGES[p.slug] ? projectPath(lang, p.slug) : null
   const status = (
     <span className={`status${daysSince(p.pushed_at) < 180 ? '' : ' grey'}`}>
       <i />{p.featured ? `${t('proj.featured')} · ` : ''}{t(`cat.${p.category}`)}
@@ -17,7 +20,9 @@ function ProjectCard({ project: p, lang, t }) {
   const body = (
     <>
       <div className="top"><span className="ic"><Code /></span>{status}</div>
-      <a className="name" href={p.url} target="_blank" rel="noopener noreferrer" title={p.slug}>{p.name}</a>
+      {page
+        ? <a className="name" href={page} title={p.slug}>{p.name}</a>
+        : <a className="name" href={p.url} target="_blank" rel="noopener noreferrer" title={p.slug}>{p.name}</a>}
       <p>{p.description[lang]}</p>
       <div className="chips">{p.tags.map((tag) => <span key={tag} className="chip">{tag}</span>)}</div>
       <div className="stats-row">
@@ -25,6 +30,7 @@ function ProjectCard({ project: p, lang, t }) {
         <span style={{ marginLeft: 'auto' }}>{t('proj.updated')} {timeAgo(p.pushed_at, lang)}</span>
       </div>
       <div className="links">
+        {page && <a href={page}><ArrowRight />{t('proj.detail')}</a>}
         <a href={p.url} target="_blank" rel="noopener noreferrer"><GitHub />{t('proj.repo')}</a>
         {p.homepage && <a href={p.homepage} target="_blank" rel="noopener noreferrer"><ArrowUpRight />{t('proj.demo')}</a>}
       </div>

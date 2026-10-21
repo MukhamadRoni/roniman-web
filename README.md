@@ -93,6 +93,7 @@ Buka **http://localhost:5173**. Vite meneruskan request `/api/*` ke Laravel di p
 | Pengalaman, pendidikan, skill | `backend/database/data/*.json` | sama seperti di atas |
 | Teks tombol & menu (ID/EN) | `frontend/src/i18n.js` | otomatis saat `npm run dev` |
 | Foto & latar | `frontend/src/assets/` | ganti file dengan nama yang sama |
+| Halaman showcase project (`/id/projects/<slug>`) | `frontend/src/pages/` (daftar di `pages/index.js`, konten Topline di `pages/topline/content.js`, aset di `frontend/public/topline/`) | otomatis saat `npm run dev` |
 
 > ⚠️ Artikel di `articles.json` masih **data contoh** (`"is_sample": true`) dan tampil dengan label kuning. Ganti dengan artikel asli, isi `url`, lalu ubah `is_sample` menjadi `false`.
 
@@ -134,6 +135,38 @@ composer test           # atau: php artisan test
 ```
 
 ## 🌍 Deploy
+
+### Docker Compose (disarankan)
+
+Butuh Docker Engine dengan plugin Compose v2 di server.
+
+```bash
+git clone <repo> personal-web && cd personal-web
+cp .env.example .env        # isi APP_URL, atur HTTP_PORT jika perlu
+docker compose up -d --build
+```
+
+Situs langsung tersedia di port `HTTP_PORT` (bawaan `80`). Isi stack:
+
+| Service | Isi |
+|---|---|
+| `web` | nginx: build React + SPA fallback, meneruskan `/api` dan `/up` ke `app` |
+| `app` | Laravel di PHP 8.4-FPM. Saat start: migrasi, lalu seed ulang dari `database/data/*.json` |
+| `scheduler` | `php artisan schedule:work` → `github:sync` setiap hari 03:00 |
+
+Data tersimpan di volume `app-data` (SQLite + `APP_KEY` yang dibuat otomatis jika `.env` tidak mengisinya) dan `app-storage` (cache, rate limit).
+
+```bash
+docker compose ps                                     # status + healthcheck
+docker compose logs -f app                            # log Laravel
+docker compose exec app php artisan github:sync       # sinkron GitHub sekarang
+git pull && docker compose up -d --build              # update ke versi baru
+docker compose cp app:/data/database.sqlite ./backup.sqlite   # backup database
+```
+
+**HTTPS:** stack ini hanya melayani HTTP. Pasang reverse proxy (Caddy, Traefik, atau nginx di host) di depannya, isi `HTTP_PORT=127.0.0.1:8080`, lalu arahkan proxy ke port itu. IP pengunjung dari proxy di jaringan privat sudah dibaca dari `X-Forwarded-For`.
+
+### Manual
 
 1. **Frontend** — `npm run build` menghasilkan `frontend/dist/`. Hosting harus mengarahkan semua path (`/id`, `/en`) ke `index.html` (SPA fallback). Jika API berada di domain lain, isi `VITE_API_URL` di `frontend/.env` sebelum build.
 2. **Backend** — arahkan web server ke `backend/public`, set `APP_ENV=production`, `APP_DEBUG=false`, dan `FRONTEND_URL` ke domain frontend (untuk CORS). Lalu jalankan:

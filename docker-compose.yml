@@ -1,0 +1,66 @@
+# Production stack: nginx (React + /api proxy) → PHP-FPM (Laravel) + scheduler, SQLite in a volume.
+# Usage: cp .env.example .env && docker compose up -d --build
+
+name: personal-web
+
+x-app-env: &app-env
+  APP_NAME: ${APP_NAME:-Roni Portfolio API}
+  APP_URL: ${APP_URL:-http://localhost}
+  # Leave empty to generate one on first start (kept in the app-data volume).
+  APP_KEY: ${APP_KEY:-}
+  APP_TIMEZONE: Asia/Jakarta
+  APP_LOCALE: id
+  APP_FALLBACK_LOCALE: en
+  LOG_LEVEL: ${LOG_LEVEL:-warning}
+  # Frontend and API share one domain; CORS only matters for other origins.
+  FRONTEND_URL: ${APP_URL:-http://localhost}
+  GITHUB_USERNAME: ${GITHUB_USERNAME:-MukhamadRoni}
+  GITHUB_TOKEN: ${GITHUB_TOKEN:-}
+  CONTACT_EMAIL: ${CONTACT_EMAIL:-mukhamadroni27@gmail.com}
+  CONTACT_WHATSAPP: ${CONTACT_WHATSAPP:-6283111735013}
+
+x-app-volumes: &app-volumes
+  - app-data:/data                       # SQLite database + generated APP_KEY
+  - app-storage:/var/www/html/storage    # cache (rate limits, repo count) shared with the scheduler
+
+services:
+  app:
+    build: ./backend
+    image: personal-web-app
+    restart: unless-stopped
+    environment:
+      <<: *app-env
+      SEED_ON_START: ${SEED_ON_START:-true}
+    volumes: *app-volumes
+    healthcheck:
+      test: ["CMD", "test", "-f", "/tmp/ready"]
+      interval: 10s
+      timeout: 3s
+      retries: 30
+      start_period: 30s
+
+  # Runs `github:sync` daily at 03:00 (routes/console.php).
+  scheduler:
+    build: ./backend
+    image: personal-web-app
+    restart: unless-stopped
+    command: ["php", "artisan", "schedule:work"]
+    environment: *app-env
+    volumes: *app-volumes
+    depends_on:
+      app:
+        condition: service_healthy
+
+  web:
+    build: ./frontend
+    image: personal-web-web
+    restart: unless-stopped
+    ports:
+      - "${HTTP_PORT:-80}:80"
+    depends_on:
+      app:
+        condition: service_healthy
+
+volumes:
+  app-data:
+  app-storage:

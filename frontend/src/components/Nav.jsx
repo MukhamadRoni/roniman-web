@@ -22,7 +22,8 @@ function LangToggle({ lang, setLang, t }) {
   )
 }
 
-export default function Nav({ lang, setLang, t }) {
+/** `home` prefixes the section links on pages other than the landing page (e.g. "/id"). */
+export default function Nav({ lang, setLang, t, home = '' }) {
   const [scrolled, setScrolled] = useState(false)
   const [active, setActive] = useState(null)
   const [open, setOpen] = useState(false)
@@ -67,17 +68,17 @@ export default function Nav({ lang, setLang, t }) {
     <>
       <header className={`nav${scrolled ? ' scrolled' : ''}`}>
         <div className="nav-inner">
-          <a href="#top" className="brand" aria-label="Mukhamad Roni"><Logo />Roni</a>
+          <a href={`${home}#top`} className="brand" aria-label="Mukhamad Roni"><Logo />Roni</a>
           <nav className="menu" aria-label={t('aria.mainMenu')}>
             <span className="pill" style={{ opacity: pill.visible ? 1 : 0, width: pill.w, transform: `translateX(${pill.x}px)` }} />
             {LINKS.map(([id, key]) => (
-              <a key={id} href={`#${id}`} ref={(el) => { linkRefs.current[id] = el }} className={active === id ? 'active' : undefined}>{t(key)}</a>
+              <a key={id} href={`${home}#${id}`} ref={(el) => { linkRefs.current[id] = el }} className={active === id ? 'active' : undefined}>{t(key)}</a>
             ))}
           </nav>
           <div className="nav-right">
             <LangToggle lang={lang} setLang={setLang} t={t} />
             <img className="avatar" src={avatar} alt="" width="36" height="36" />
-            <a href="#contact" className="btn btn-primary">{t('cta.primary')}<ArrowUpRight /></a>
+            <a href={`${home}#contact`} className="btn btn-primary">{t('cta.primary')}<ArrowUpRight /></a>
             <button className="burger" type="button" aria-label={t('aria.openMenu')} aria-expanded={open} onClick={() => setOpen(true)}><Menu /></button>
           </div>
         </div>
@@ -89,11 +90,11 @@ export default function Nav({ lang, setLang, t }) {
           <button className="burger" style={{ display: 'inline-flex' }} type="button" aria-label={t('aria.closeMenu')} onClick={() => setOpen(false)}><Close /></button>
         </div>
         <nav>
-          {LINKS.map(([id, key]) => <a key={id} href={`#${id}`} onClick={() => setOpen(false)}>{t(key)}</a>)}
+          {LINKS.map(([id, key]) => <a key={id} href={`${home}#${id}`} onClick={() => setOpen(false)}>{t(key)}</a>)}
         </nav>
         <div style={{ display: 'flex', gap: 10, alignItems: 'center', marginTop: 24 }}>
           <LangToggle lang={lang} setLang={setLang} t={t} />
-          <a href="#contact" className="btn btn-primary" style={{ flex: 1, justifyContent: 'center', height: 52 }} onClick={() => setOpen(false)}>{t('cta.primary')}</a>
+          <a href={`${home}#contact`} className="btn btn-primary" style={{ flex: 1, justifyContent: 'center', height: 52 }} onClick={() => setOpen(false)}>{t('cta.primary')}</a>
         </div>
       </div>
     </>

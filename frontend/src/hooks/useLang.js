@@ -12,6 +12,15 @@ function langFromPath() {
   return m ? m[1] : null
 }
 
+// Path after the language prefix, e.g. "/projects/topline" (empty on the landing page).
+function subPath() {
+  return window.location.pathname.replace(/^\/(id|en)(?=\/|$)/, '').replace(/\/$/, '')
+}
+
+function urlFor(lang) {
+  return `/${lang}${subPath()}${window.location.search}${window.location.hash}`
+}
+
 function initialLang() {
   const fromPath = langFromPath()
   if (fromPath) return fromPath
@@ -24,10 +33,10 @@ function initialLang() {
 export function useLang() {
   const [lang, setLangState] = useState(initialLang)
 
-  // Put the language in the URL on first load (e.g. "/" -> "/id").
+  // Put the language in the URL on first load (e.g. "/" -> "/id", "/projects/topline" -> "/id/projects/topline").
   useEffect(() => {
     if (!langFromPath()) {
-      window.history.replaceState(null, '', `/${lang}${window.location.search}${window.location.hash}`)
+      window.history.replaceState(null, '', urlFor(lang))
     }
     const onPop = () => setLangState(langFromPath() || initialLang())
     window.addEventListener('popstate', onPop)
@@ -41,7 +50,7 @@ export function useLang() {
 
   const setLang = useCallback((next) => {
     if (!LANGS.includes(next)) return
-    window.history.pushState(null, '', `/${next}${window.location.search}${window.location.hash}`)
+    window.history.pushState(null, '', urlFor(next))
     setLangState(next)
   }, [])
 

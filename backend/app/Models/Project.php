@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Project extends Model
 {
-    public const CATEGORIES = ['web', 'data', 'auto', 'embedded'];
+    public const CATEGORIES = ['web', 'data', 'auto', 'embedded', 'desktop'];
 
     protected $fillable = [
         'slug', 'short_name', 'category', 'language', 'description', 'tags', 'metrics',

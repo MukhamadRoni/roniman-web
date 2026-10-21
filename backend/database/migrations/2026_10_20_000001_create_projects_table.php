@@ -12,7 +12,7 @@ return new class extends Migration
             $table->id();
             $table->string('slug')->unique()->comment('GitHub repository name');
             $table->string('short_name')->nullable()->comment('Display name when the repo name is too long');
-            $table->string('category', 32)->index()->comment('web | data | auto | embedded');
+            $table->string('category', 32)->index()->comment('web | data | auto | embedded | desktop');
             $table->string('language', 64)->nullable();
             $table->json('description')->comment('{"id": "...", "en": "..."}');
             $table->json('tags')->nullable();

@@ -40,6 +40,18 @@ class PortfolioApiTest extends TestCase
         $this->assertSame(['embedded'], array_values(array_unique(array_column($response->json('data'), 'category'))));
     }
 
+    public function test_topline_is_shown_as_a_desktop_project(): void
+    {
+        $this->getJson('/api/projects/topline')
+            ->assertOk()
+            ->assertJsonPath('data.name', 'Topline')
+            ->assertJsonPath('data.category', 'desktop')
+            ->assertJsonPath('data.url', 'https://github.com/MukhamadRoni/topline');
+
+        $slugs = array_column($this->getJson('/api/projects?category=desktop')->json('data'), 'slug');
+        $this->assertSame(['topline'], $slugs);
+    }
+
     public function test_invalid_category_is_rejected(): void
     {
         $this->getJson('/api/projects?category=games')->assertUnprocessable();

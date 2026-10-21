@@ -51,6 +51,28 @@
     "homepage": null
   },
   {
+    "slug": "topline",
+    "short_name": "Topline",
+    "category": "desktop",
+    "language": "Rust",
+    "pushed_at": "2026-10-20T14:42:05Z",
+    "tags": [
+      "Rust",
+      "Win32",
+      "Windows.UI.Composition",
+      "Direct2D"
+    ],
+    "description": {
+      "id": "Notch hidup untuk Windows 11: musik, lirik, fokus, to-do, jadwal sholat, dan kabar sistem di tengah atas layar. Rust native tanpa WebView, dengan CPU 0% saat idle.",
+      "en": "A living notch for Windows 11: music, lyrics, focus, to-dos, prayer times, and system updates at the top center of the screen. Native Rust with no WebView, at 0% CPU when idle."
+    },
+    "is_featured": false,
+    "metrics": null,
+    "sort_order": 0,
+    "repo_url": "https://github.com/MukhamadRoni/topline",
+    "homepage": null
+  },
+  {
     "slug": "RoVaultX",
     "category": "web",
     "language": "JavaScript",
