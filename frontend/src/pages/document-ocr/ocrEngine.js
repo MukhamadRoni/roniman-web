@@ -11,11 +11,18 @@ export const MODEL_URLS = {
   dictionary: `https://raw.githubusercontent.com/${MODEL_REPO}/recognition/ppocrv6_tiny_dict.txt`,
 }
 
-// Used for the progress bar when a server sends no Content-Length.
-const KNOWN_SIZES = { detection: 1882568, recognition: 4530048, dictionary: 80000 }
+// Decompressed sizes, used as the progress bar's total (the CDNs send compressed bodies,
+// so Content-Length would not match the bytes the stream reader counts).
+const KNOWN_SIZES = { detection: 1882568, recognition: 4530048, dictionary: 80000, wasm: 14239897 }
 
 let service = null
 let loading = null
+// ONNX Runtime remembers a failed WASM start for the life of the page, so after one
+// the only way to retry is a reload.
+let needsReload = false
+
+/** True when a retry has to reload the page. */
+export const engineNeedsReload = () => needsReload
 
 /** Downloads one file, reporting bytes received so far. */
 async function download(url, onBytes) {
@@ -44,25 +51,37 @@ async function download(url, onBytes) {
 
 async function load(onProgress) {
   const [ort, { PaddleOcrService }] = await Promise.all([import('onnxruntime-web'), import('ppu-paddle-ocr/web')])
-  ort.env.wasm.wasmPaths = `https://cdn.jsdelivr.net/npm/onnxruntime-web@${ort.env.versions.web}/dist/`
+  const wasmPath = `https://cdn.jsdelivr.net/npm/onnxruntime-web@${ort.env.versions.web}/dist/`
+  ort.env.wasm.wasmPaths = wasmPath
   ort.env.wasm.numThreads = 1
 
+  // Every file, the WASM binary included, is fetched here first: a network failure
+  // then happens in this retryable code instead of inside ONNX Runtime.
+  const urls = { ...MODEL_URLS, wasm: `${wasmPath}ort-wasm-simd-threaded.wasm` }
   const total = Object.values(KNOWN_SIZES).reduce((a, b) => a + b, 0)
-  const got = { detection: 0, recognition: 0, dictionary: 0 }
+  const got = Object.fromEntries(Object.keys(urls).map((key) => [key, 0]))
   const report = (key) => (bytes) => {
     got[key] = bytes
-    onProgress?.({ loaded: got.detection + got.recognition + got.dictionary, total })
+    onProgress?.({ loaded: Math.min(total, Object.values(got).reduce((a, b) => a + b, 0)), total })
   }
-  const [detection, recognition, charactersDictionary] = await Promise.all(
-    Object.keys(got).map((key) => download(MODEL_URLS[key], report(key))),
-  )
+  const [[detection, recognition, charactersDictionary, wasmBinary]] = await Promise.all([
+    Promise.all(Object.keys(urls).map((key) => download(urls[key], report(key)))),
+    // Warm the cache for the JS glue ONNX Runtime imports next, so it fails here if it must.
+    fetch(`${wasmPath}ort-wasm-simd-threaded.mjs`).then((res) => { if (!res.ok) throw new Error(`HTTP ${res.status}`) }),
+  ])
+  ort.env.wasm.wasmBinary = wasmBinary
   onProgress?.({ loaded: total, total, starting: true })
 
   const ocr = new PaddleOcrService({
     model: { detection, recognition, charactersDictionary },
     session: { executionProviders: ['wasm'] },
   })
-  await ocr.initialize()
+  try {
+    await ocr.initialize()
+  } catch (err) {
+    needsReload = true
+    throw err
+  }
   service = ocr
 }
 

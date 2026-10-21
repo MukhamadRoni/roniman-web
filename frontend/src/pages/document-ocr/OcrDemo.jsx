@@ -40,6 +40,7 @@ export default function OcrDemo({ lang, c, samples }) {
   const inputRef = useRef(null)
   const runRef = useRef(0)
   const busyRef = useRef(false)
+  const engineRef = useRef(null)
   const lastRef = useRef(null)
 
   const busy = status === 'loading' || status === 'processing'
@@ -69,8 +70,11 @@ export default function OcrDemo({ lang, c, samples }) {
         if (!res?.ok) throw Object.assign(new Error('sample fetch failed'), { key: 'download' })
         blob = await res.blob()
       }
-      if (!ACCEPT.includes(blob.type)) throw Object.assign(new Error('unsupported'), { key: 'unsupported' })
-      bitmap = await createImageBitmap(blob, { imageOrientation: 'from-image' })
+      // Some pickers and drag sources give no MIME type at all: then let the decoder decide.
+      if (blob.type && !ACCEPT.includes(blob.type)) throw Object.assign(new Error('unsupported'), { key: 'unsupported' })
+      bitmap = await createImageBitmap(blob, { imageOrientation: 'from-image' }).catch((err) => {
+        throw Object.assign(err, { key: blob.type ? 'generic' : 'unsupported' })
+      })
     } catch (err) {
       setStatus('error')
       setError(err.key || 'unsupported')
@@ -89,6 +93,7 @@ export default function OcrDemo({ lang, c, samples }) {
     let recognize
     try {
       const engine = await import('./ocrEngine.js')
+      engineRef.current = engine
       recognize = engine.recognize
       await engine.loadEngine((p) => id === runRef.current && setProgress(p))
     } catch (err) {
@@ -125,7 +130,6 @@ export default function OcrDemo({ lang, c, samples }) {
   }
 
   const pct = progress ? Math.round((progress.loaded / progress.total) * 100) : 0
-  const mb = (bytes) => fmt.format(bytes / 1e6)
 
   return (
     <div className="do-demo" data-status={status}>
@@ -145,7 +149,7 @@ export default function OcrDemo({ lang, c, samples }) {
               <div className="do-busy" role="status">
                 <span className="do-spinner" aria-hidden="true" />
                 {status === 'loading'
-                  ? (progress?.starting ? c.starting : `${c.loading} · ${mb(progress?.loaded ?? 0)} / ${mb(progress?.total ?? 0)} MB`)
+                  ? (progress?.starting ? c.starting : `${c.loading} · ${pct}%`)
                   : c.processing}
                 {status === 'loading' && !progress?.starting && (
                   <span className="do-bar" aria-hidden="true"><i style={{ width: `${pct}%` }} /></span>
@@ -194,7 +198,7 @@ export default function OcrDemo({ lang, c, samples }) {
             <div className="do-error">
               <p>{c.errors[error] || c.errors.generic}</p>
               {error !== 'unsupported' && lastRef.current && (
-                <button type="button" className="btn btn-glass" onClick={() => run(lastRef.current)}>{c.retry}</button>
+                <button type="button" className="btn btn-glass" onClick={() => (engineRef.current?.engineNeedsReload() ? window.location.reload() : run(lastRef.current))}>{c.retry}</button>
               )}
             </div>
           )}
