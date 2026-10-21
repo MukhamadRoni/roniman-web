@@ -142,19 +142,20 @@ Butuh Docker Engine dengan plugin Compose v2 di server.
 
 ```bash
 git clone <repo> personal-web && cd personal-web
-cp .env.example .env        # isi APP_URL, atur HTTP_PORT jika perlu
+cp .env.example .env        # isi DOMAIN dan APP_URL (https://DOMAIN)
 docker compose up -d --build
 ```
 
-Situs langsung tersedia di port `HTTP_PORT` (bawaan `80`). Isi stack:
+Pastikan DNS domain sudah mengarah ke IP server dan port 80/443 terbuka. Situs langsung tersedia di `https://DOMAIN` dengan sertifikat Let's Encrypt otomatis. Isi stack:
 
 | Service | Isi |
 |---|---|
+| `caddy` | HTTPS (sertifikat otomatis untuk `DOMAIN`), meneruskan semua request ke `web` |
 | `web` | nginx: build React + SPA fallback, meneruskan `/api` dan `/up` ke `app` |
 | `app` | Laravel di PHP 8.4-FPM. Saat start: migrasi, lalu seed ulang dari `database/data/*.json` |
 | `scheduler` | `php artisan schedule:work` → `github:sync` setiap hari 03:00 |
 
-Data tersimpan di volume `app-data` (SQLite + `APP_KEY` yang dibuat otomatis jika `.env` tidak mengisinya) dan `app-storage` (cache, rate limit).
+Data tersimpan di volume `app-data` (SQLite + `APP_KEY` yang dibuat otomatis jika `.env` tidak mengisinya), `app-storage` (cache, rate limit), dan `caddy-data` (sertifikat HTTPS).
 
 ```bash
 docker compose ps                                     # status + healthcheck
@@ -164,7 +165,7 @@ git pull && docker compose up -d --build              # update ke versi baru
 docker compose cp app:/data/database.sqlite ./backup.sqlite   # backup database
 ```
 
-**HTTPS:** stack ini hanya melayani HTTP. Pasang reverse proxy (Caddy, Traefik, atau nginx di host) di depannya, isi `HTTP_PORT=127.0.0.1:8080`, lalu arahkan proxy ke port itu. IP pengunjung dari proxy di jaringan privat sudah dibaca dari `X-Forwarded-For`.
+**HTTPS:** ditangani service `caddy`. IP asli pengunjung diteruskan lewat `X-Forwarded-For` dan dibaca nginx, jadi rate limit form kontak tetap per pengunjung. Untuk uji coba lokal, isi `DOMAIN=localhost` (sertifikat self-signed).
 
 ### Manual
 
