@@ -12,8 +12,8 @@
 
 ## Global Constraints
 
-- No "UBS", client name, or recruitment wording anywhere: copy, alt text, meta, samples, classifier labels, commit messages.
-- No code copied from the old employer project (`C:\xampp2\...\ocr-local`). Write from the public libraries' APIs.
+- No client name or wording about the client's business process anywhere: copy, alt text, meta, samples, classifier labels, commit messages.
+- No code copied from the old employer project (the local copy on the owner's machine). Write from the public libraries' APIs.
 - Model URLs (exact, in one constant):
   - detection `https://media.githubusercontent.com/media/PT-Perkasa-Pilar-Utama/ppu-paddle-ocr-models/main/detection/ort/PP-OCRv6_tiny_det.ort` (1,882,568 bytes)
   - recognition `https://media.githubusercontent.com/media/PT-Perkasa-Pilar-Utama/ppu-paddle-ocr-models/main/recognition/ort/PP-OCRv6_tiny_rec.ort` (4,530,048 bytes)
@@ -157,6 +157,6 @@ Score = matched keywords ÷ keywords in the rule; highest wins, ties go to the e
 ### Task 6: Final checks
 
 - [ ] **Step 1:** `cd backend && php artisan test`: all pass. `cd frontend && npm test && npm run build`: pass, `dist` has no `.wasm` and no OpenCV (same commands as Task 5 Step 1).
-- [ ] **Step 2:** `grep -rniE "ubs|rekrut|recruit" frontend/src/pages/document-ocr frontend/public/document-ocr frontend/design/document-ocr backend/database/data/projects.json` prints nothing (inspect the PNG/JPG samples visually too).
+- [ ] **Step 2:** a case-insensitive grep for the client name and its business-process words (the owner knows them; not written here) over `frontend/src/pages/document-ocr`, `frontend/public/document-ocr`, `frontend/design/document-ocr` and the new `projects.json` entry prints nothing (inspect the PNG/JPG samples visually too).
 - [ ] **Step 3:** Walk through the spec's "Done when" list one line at a time and confirm each line; report any that don't hold instead of committing.
 - [ ] **Step 4: Commit** any fixes (`fix(document-ocr): …`).

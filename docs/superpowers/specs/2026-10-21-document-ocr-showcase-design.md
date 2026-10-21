@@ -39,7 +39,7 @@ technically interesting about it.
 
 ## Anti-goals (would be a failure even if it works)
 
-- **The page must not mention UBS, the client, or the recruitment context** in
+- **The page must not mention the client or what the tool was used for there** in
   any text, alt text, metadata, sample image, or classifier label. It is framed
   neutrally as "a document checker I built using WebAssembly OCR".
 - **No code copied from the employer project.** Rebuild it from the public
@@ -53,7 +53,7 @@ technically interesting about it.
 
 - One showcase page like Topline, with a live upload-and-read demo.
 - No GitHub repo; the card gets only a "View details" button.
-- Neutral framing, no UBS name.
+- Neutral framing, no client name.
 - Load the model and WASM from CDN, not from the owner's server.
 - Model: **PP-OCRv6 tiny** (`v6-tiny` preset in `ppu-paddle-ocr`).
 
@@ -212,4 +212,4 @@ served by the owner's server.
   GitHub, not from the owner's domain.
 - The card shows "View details" and no GitHub link; other cards are unchanged.
 - `php artisan test` and `npm run build` pass.
-- A text search of the new files finds no "UBS" or recruitment wording.
+- A text search of the new files finds no client name or client-context wording.
