@@ -11,6 +11,7 @@ const LANG_COLORS = {
 
 function ProjectCard({ project: p, lang, t }) {
   // Projects with a showcase page link there; the rest go straight to GitHub.
+  // Projects without a public repo (url is null) only link to their page, if any.
   const page = PROJECT_PAGES[p.slug] ? projectPath(lang, p.slug) : null
   const status = (
     <span className={`status${daysSince(p.pushed_at) < 180 ? '' : ' grey'}`}>
@@ -22,7 +23,9 @@ function ProjectCard({ project: p, lang, t }) {
       <div className="top"><span className="ic"><Code /></span>{status}</div>
       {page
         ? <a className="name" href={page} title={p.slug}>{p.name}</a>
-        : <a className="name" href={p.url} target="_blank" rel="noopener noreferrer" title={p.slug}>{p.name}</a>}
+        : p.url
+          ? <a className="name" href={p.url} target="_blank" rel="noopener noreferrer" title={p.slug}>{p.name}</a>
+          : <span className="name" title={p.slug}>{p.name}</span>}
       <p>{p.description[lang]}</p>
       <div className="chips">{p.tags.map((tag) => <span key={tag} className="chip">{tag}</span>)}</div>
       <div className="stats-row">
@@ -31,7 +34,7 @@ function ProjectCard({ project: p, lang, t }) {
       </div>
       <div className="links">
         {page && <a href={page}><ArrowRight />{t('proj.detail')}</a>}
-        <a href={p.url} target="_blank" rel="noopener noreferrer"><GitHub />{t('proj.repo')}</a>
+        {p.url && <a href={p.url} target="_blank" rel="noopener noreferrer"><GitHub />{t('proj.repo')}</a>}
         {p.homepage && <a href={p.homepage} target="_blank" rel="noopener noreferrer"><ArrowUpRight />{t('proj.demo')}</a>}
       </div>
     </>
