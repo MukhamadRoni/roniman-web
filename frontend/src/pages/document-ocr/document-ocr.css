@@ -1,0 +1,73 @@
+/* Document OCR showcase page. Builds on the site tokens in styles.css, with the same
+   layout rhythm as the Topline page and a teal accent of its own. Mobile first. */
+.do{
+  --do-tint:rgba(6,20,26,.45); --do-line:rgba(255,255,255,.14); --do-accent:#3DD6C0;
+  --do-grad:radial-gradient(110% 70% at 50% 0%, #0E8F86 0%, #0B3A5C 48%, #05070F 88%);
+}
+.do section{padding:80px 0}
+.do .sec-head{margin-bottom:36px}
+.do h3{font-size:18px}
+
+/* ---------- hero ---------- */
+.do-hero-wrap{padding:8px}
+.do .do-hero{position:relative;padding:104px 0 64px;border-radius:24px;overflow:hidden;background:var(--do-grad);isolation:isolate}
+.do-hero::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background-image:radial-gradient(rgba(255,255,255,.07) 1px,transparent 1px);background-size:24px 24px;mask-image:linear-gradient(180deg,#000,transparent 70%);-webkit-mask-image:linear-gradient(180deg,#000,transparent 70%)}
+.do-hero-head{display:flex;flex-direction:column;align-items:center;text-align:center}
+.do-back{align-self:flex-start;display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 12px;margin-bottom:28px;border-radius:999px;font-size:13px;color:rgba(242,246,255,.85);background:var(--do-tint);border:1px solid var(--do-line);transition:background .3s}
+.do-back:hover{background:rgba(255,255,255,.14)}
+.do-back svg{width:14px;height:14px}
+.do-logo{width:72px;height:72px;border-radius:20px;display:grid;place-items:center;color:var(--ice);background:linear-gradient(160deg,rgba(255,255,255,.22),rgba(255,255,255,.06));box-shadow:0 16px 40px rgba(5,7,15,.45),0 0 0 1px rgba(255,255,255,.14)}
+.do-logo svg{width:36px;height:36px}
+.do-eyebrow{margin-top:22px;color:rgba(242,246,255,.85)}
+.do-hero h1{margin-top:10px;font-size:clamp(44px,10vw,96px);line-height:.95;letter-spacing:-.045em;font-weight:500}
+.do-tagline{margin-top:14px;font-size:clamp(20px,3.2vw,28px);line-height:1.25;letter-spacing:-.02em;font-weight:500}
+.do-desc{margin-top:14px;max-width:620px;color:rgba(242,246,255,.85)}
+.do-cta{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:28px}
+.do-chips{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:24px;list-style:none}
+.do-hero .chip{color:rgba(242,246,255,.9);background:var(--do-tint);border-color:var(--do-line)}
+
+/* ---------- how it works ---------- */
+.do-steps{display:grid;grid-template-columns:1fr;gap:12px;list-style:none}
+.do-steps li{padding:22px;border-radius:22px;display:flex;flex-direction:column;gap:10px}
+.do-steps p{color:var(--text-2);font-size:15px;line-height:1.55}
+.do-num{flex:none;font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--do-accent);width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:rgba(61,214,192,.1);border:1px solid rgba(61,214,192,.3)}
+
+/* ---------- performance ---------- */
+.do-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.do-stat{padding:20px;border-radius:20px;display:flex;flex-direction:column-reverse;justify-content:flex-end;gap:10px;min-height:140px}
+.do-stat dd{font-size:clamp(28px,4.4vw,44px);font-weight:400;letter-spacing:-.03em;line-height:1;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.do-stat dt{font-size:13px;color:var(--text-2);line-height:1.45}
+.do-stat.featured dt{color:rgba(242,246,255,.9)}
+.do-stack{margin-top:12px;padding:24px;border-radius:22px}
+.do-chiplist{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px;list-style:none}
+.do-stack p{margin-top:16px;color:var(--text-2);font-size:15px;max-width:760px}
+
+/* ---------- privacy ---------- */
+.do-checks{display:grid;grid-template-columns:1fr;gap:22px;list-style:none}
+.do-checks li{display:flex;gap:14px;align-items:flex-start}
+.do-checks p{color:var(--text-2);font-size:15px;margin-top:4px}
+.do-check{flex:none;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;color:var(--mint);background:rgba(67,186,149,.12);border:1px solid rgba(67,186,149,.35)}
+.do-check svg{width:14px;height:14px}
+
+/* ---------- larger screens ---------- */
+@media (min-width:640px){
+  .do-steps{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .do-steps li:last-child{grid-column:1/-1}
+}
+@media (min-width:768px){
+  .do section{padding:112px 0}
+  .do-hero-wrap{padding:12px}
+  .do .do-hero{padding-top:128px;padding-bottom:88px;border-radius:32px}
+  .do-logo{width:88px;height:88px;border-radius:24px}
+  .do-checks{grid-template-columns:repeat(2,minmax(0,1fr));gap:28px 40px}
+}
+@media (min-width:1024px){
+  .do-steps{grid-template-columns:repeat(5,minmax(0,1fr))}
+  .do-steps li:last-child{grid-column:auto}
+  .do-stats{grid-template-columns:repeat(4,minmax(0,1fr))}
+}
+
+/* No backdrop-filter: solid tint instead of glass. */
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+  .do-back,.do-hero .chip{background:rgba(11,58,92,.85)}
+}

@@ -58,7 +58,8 @@ function ProjectCard({ project: p, lang, t }) {
 export default function Projects({ projects, totalRepos, githubUrl, lang, t }) {
   const [cat, setCat] = useState('all')
   const shown = projects.filter((p) => cat === 'all' || p.category === cat)
-  const more = Math.max(0, totalRepos - projects.length)
+  // Repos on GitHub not shown here; projects without a repo are not part of that count.
+  const more = Math.max(0, totalRepos - projects.filter((p) => p.url).length)
 
   return (
     <section id="projects" className="alt">

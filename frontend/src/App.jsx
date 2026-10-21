@@ -56,7 +56,8 @@ export default function App() {
     )
   }
 
-  const latestProject = [...projects].sort((a, b) => (b.pushed_at || '').localeCompare(a.pushed_at || ''))[0]
+  // The hero card says "latest push on GitHub", so projects without a repo don't count.
+  const latestProject = projects.filter((p) => p.url).sort((a, b) => (b.pushed_at || '').localeCompare(a.pushed_at || ''))[0]
 
   return (
     <>
