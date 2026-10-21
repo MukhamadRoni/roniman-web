@@ -11,9 +11,11 @@ const LANG_COLORS = {
 
 function ProjectCard({ project: p, lang, t }) {
   // Projects with a showcase page link there; the rest go straight to GitHub.
+  // Projects without a public repo (url is null) only link to their page, if any.
   const page = PROJECT_PAGES[p.slug] ? projectPath(lang, p.slug) : null
+  // Freshness comes from the last GitHub push, which a project without a repo doesn't have.
   const status = (
-    <span className={`status${daysSince(p.pushed_at) < 180 ? '' : ' grey'}`}>
+    <span className={`status${!p.url || daysSince(p.pushed_at) < 180 ? '' : ' grey'}`}>
       <i />{p.featured ? `${t('proj.featured')} · ` : ''}{t(`cat.${p.category}`)}
     </span>
   )
@@ -22,16 +24,18 @@ function ProjectCard({ project: p, lang, t }) {
       <div className="top"><span className="ic"><Code /></span>{status}</div>
       {page
         ? <a className="name" href={page} title={p.slug}>{p.name}</a>
-        : <a className="name" href={p.url} target="_blank" rel="noopener noreferrer" title={p.slug}>{p.name}</a>}
+        : p.url
+          ? <a className="name" href={p.url} target="_blank" rel="noopener noreferrer" title={p.slug}>{p.name}</a>
+          : <span className="name" title={p.slug}>{p.name}</span>}
       <p>{p.description[lang]}</p>
       <div className="chips">{p.tags.map((tag) => <span key={tag} className="chip">{tag}</span>)}</div>
       <div className="stats-row">
         {p.language && <span className="lang-dot"><i style={{ background: LANG_COLORS[p.language] || '#8a93a8' }} />{p.language}</span>}
-        <span style={{ marginLeft: 'auto' }}>{t('proj.updated')} {timeAgo(p.pushed_at, lang)}</span>
+        {p.url && <span style={{ marginLeft: 'auto' }}>{t('proj.updated')} {timeAgo(p.pushed_at, lang)}</span>}
       </div>
       <div className="links">
         {page && <a href={page}><ArrowRight />{t('proj.detail')}</a>}
-        <a href={p.url} target="_blank" rel="noopener noreferrer"><GitHub />{t('proj.repo')}</a>
+        {p.url && <a href={p.url} target="_blank" rel="noopener noreferrer"><GitHub />{t('proj.repo')}</a>}
         {p.homepage && <a href={p.homepage} target="_blank" rel="noopener noreferrer"><ArrowUpRight />{t('proj.demo')}</a>}
       </div>
     </>
@@ -55,7 +59,8 @@ function ProjectCard({ project: p, lang, t }) {
 export default function Projects({ projects, totalRepos, githubUrl, lang, t }) {
   const [cat, setCat] = useState('all')
   const shown = projects.filter((p) => cat === 'all' || p.category === cat)
-  const more = Math.max(0, totalRepos - projects.length)
+  // Repos on GitHub not shown here; projects without a repo are not part of that count.
+  const more = Math.max(0, totalRepos - projects.filter((p) => p.url).length)
 
   return (
     <section id="projects" className="alt">

@@ -52,6 +52,16 @@ class PortfolioApiTest extends TestCase
         $this->assertSame(['topline'], $slugs);
     }
 
+    public function test_document_ocr_is_listed_without_a_repo(): void
+    {
+        $this->getJson('/api/projects/document-ocr')
+            ->assertOk()
+            ->assertJsonPath('data.name', 'Document OCR')
+            ->assertJsonPath('data.category', 'data')
+            ->assertJsonPath('data.url', null)
+            ->assertJsonPath('data.featured', false);
+    }
+
     public function test_invalid_category_is_rejected(): void
     {
         $this->getJson('/api/projects?category=games')->assertUnprocessable();

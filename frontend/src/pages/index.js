@@ -6,6 +6,7 @@ import { lazy } from 'react'
  */
 export const PROJECT_PAGES = {
   topline: lazy(() => import('./topline/ToplinePage.jsx')),
+  'document-ocr': lazy(() => import('./document-ocr/DocumentOcrPage.jsx')),
 }
 
 export const projectPath = (lang, slug) => `/${lang}/projects/${slug}`
