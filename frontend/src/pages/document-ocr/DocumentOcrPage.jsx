@@ -3,7 +3,8 @@ import { useDocumentMeta } from '../../hooks/useDocumentMeta.js'
 import { projectPath } from '../index.js'
 import { ArrowLeft, Check } from '../topline/icons.jsx'
 import { ScanText } from './icons.jsx'
-import { ASSETS, CONTENT } from './content.js'
+import { ASSETS, CONTENT, SAMPLES } from './content.js'
+import OcrDemo from './OcrDemo.jsx'
 import './document-ocr.css'
 
 function SecHead({ label, title, lead, id }) {
@@ -55,6 +56,7 @@ export default function DocumentOcrPage({ lang }) {
       <section id="demo" aria-labelledby="do-demo">
         <div className="container">
           <SecHead id="do-demo" label={c.demo.label} title={c.demo.title} />
+          <OcrDemo lang={lang} c={c.demo} samples={SAMPLES} />
         </div>
       </section>
 
