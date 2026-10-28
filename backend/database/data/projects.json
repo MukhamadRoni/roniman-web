@@ -279,5 +279,27 @@
     "sort_order": 0,
     "repo_url": null,
     "homepage": null
+  },
+  {
+    "slug": "simready-assets",
+    "short_name": "SimReady Assets",
+    "category": "data",
+    "language": "Python",
+    "pushed_at": "2026-10-28T00:00:00Z",
+    "tags": [
+      "MCP",
+      "Claude Skill",
+      "OpenUSD",
+      "three.js"
+    ],
+    "description": {
+      "id": "Skill Claude dan server MCP untuk 2.603 aset 3D NVIDIA SimReady. Cari, unduh per aset, dan konversi USD ke GLB untuk Isaac Sim atau three.js, tanpa mengunduh dataset 476 GB. Bisa dipasang di Claude Code, Claude Desktop, Cursor, dan VS Code.",
+      "en": "Claude skill and MCP server for NVIDIA's 2,603 SimReady 3D assets. Search, download one asset at a time and convert USD to GLB for Isaac Sim or three.js, without downloading the 476 GB dataset. Installs in Claude Code, Claude Desktop, Cursor and VS Code."
+    },
+    "is_featured": false,
+    "metrics": null,
+    "sort_order": 0,
+    "repo_url": "https://github.com/MukhamadRoni/simready-assets",
+    "homepage": null
   }
 ]
