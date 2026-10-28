@@ -1,0 +1,39 @@
+/* SimReady Assets page. InstallTabs styles first; page styles are added later. */
+.sr-sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+.sr-tabs { min-width: 0; max-width: 100%; }
+.sr-tablist {
+  display: flex; gap: 6px; overflow-x: auto; scrollbar-width: thin;
+  border-bottom: 1px solid var(--glass-dark-b); padding-bottom: 8px;
+}
+.sr-tab {
+  flex: 0 0 auto; background: var(--glass-dark); color: var(--text-2);
+  border: 1px solid var(--glass-dark-b); border-radius: 999px; padding: 8px 16px;
+  font: 500 14px var(--sans); cursor: pointer; white-space: nowrap;
+  transition: color .2s var(--ease), border-color .2s var(--ease), background .2s var(--ease);
+}
+.sr-tab:hover { color: var(--text-1); }
+.sr-tab[aria-selected="true"] { color: var(--text-1); border-color: var(--electric); background: rgba(34,113,233,.18); }
+.sr-tab:focus-visible, .sr-copy:focus-visible { outline: 2px solid var(--sky); outline-offset: 2px; }
+
+.sr-panel { padding-top: 20px; display: grid; gap: 18px; min-width: 0; }
+.sr-block { min-width: 0; }
+.sr-block-head { display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: baseline; margin-bottom: 8px; }
+.sr-block-title { color: var(--text-1); font: 500 14px var(--sans); }
+.sr-block-file { color: var(--sky); font: 12px var(--mono); overflow-wrap: anywhere; }
+.sr-code-wrap { position: relative; min-width: 0; }
+.sr-pre {
+  margin: 0; padding: 16px 84px 16px 16px; overflow-x: auto; max-width: 100%;
+  background: var(--glass-dark); border: 1px solid var(--glass-dark-b); border-radius: 12px;
+  font: 13px/1.6 var(--mono); color: var(--text-1); tab-size: 2;
+}
+.sr-pre code { font: inherit; white-space: pre; }
+.sr-copy {
+  position: absolute; top: 8px; right: 8px; padding: 6px 12px; border-radius: 8px;
+  background: var(--base-2); color: var(--text-1); border: 1px solid var(--glass-dark-b);
+  font: 12px var(--mono); cursor: pointer;
+}
+.sr-copy:hover { border-color: var(--electric); }
+.sr-copy[data-state="copied"] { color: var(--mint); border-color: var(--mint); }
+.sr-copy[data-state="manual"] { color: var(--amber); border-color: var(--amber); }
+.sr-note { margin: 0; color: var(--text-2); font: 14px/1.6 var(--sans); }
