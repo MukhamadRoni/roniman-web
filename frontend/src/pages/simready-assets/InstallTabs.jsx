@@ -6,16 +6,25 @@ function CodeBlock({ block, lang, c }) {
   const [state, setState] = useState('idle')
   const codeRef = useRef(null)
   const timer = useRef(null)
-  useEffect(() => () => clearTimeout(timer.current), [])
+  const mounted = useRef(true)
+  useEffect(() => {
+    mounted.current = true
+    return () => { mounted.current = false; clearTimeout(timer.current) }
+  }, [])
 
   const onCopy = async () => {
     const r = await copyText(block.code)
+    if (!mounted.current) return
     if (r === 'manual' && codeRef.current) {
-      const sel = window.getSelection()
-      const range = document.createRange()
-      range.selectNodeContents(codeRef.current)
-      sel.removeAllRanges()
-      sel.addRange(range)
+      try {
+        const sel = window.getSelection()
+        if (sel) {
+          const range = document.createRange()
+          range.selectNodeContents(codeRef.current)
+          sel.removeAllRanges()
+          sel.addRange(range)
+        }
+      } catch { /* hint label still shows */ }
     }
     setState(r)
     clearTimeout(timer.current)
