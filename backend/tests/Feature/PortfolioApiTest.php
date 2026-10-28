@@ -62,6 +62,16 @@ class PortfolioApiTest extends TestCase
             ->assertJsonPath('data.featured', false);
     }
 
+    public function test_simready_assets_is_listed_with_its_repo(): void
+    {
+        $this->getJson('/api/projects/simready-assets')
+            ->assertOk()
+            ->assertJsonPath('data.name', 'SimReady Assets')
+            ->assertJsonPath('data.category', 'data')
+            ->assertJsonPath('data.url', 'https://github.com/MukhamadRoni/simready-assets')
+            ->assertJsonPath('data.featured', false);
+    }
+
     public function test_invalid_category_is_rejected(): void
     {
         $this->getJson('/api/projects?category=games')->assertUnprocessable();
