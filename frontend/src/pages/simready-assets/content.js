@@ -19,7 +19,7 @@ const mcpServers = json({ mcpServers: { simready: { command: 'uvx', args: ARGS }
 const vscodeServers = json({ servers: { simready: { type: 'stdio', command: 'uvx', args: ARGS } } })
 
 const WARMUP = {
-  title: { id: 'Pemanasan sekali (disarankan)', en: 'Warm up once (recommended)' },
+  title: { id: 'Pemanasan sekali (disarankan, di terminal)', en: 'Warm up once (recommended, in a terminal)' },
   code: `uvx --from ${INSTALL_SPEC} simready --help`,
 }
 
@@ -30,11 +30,15 @@ export const CLIENTS = [
     blocks: [
       WARMUP,
       {
-        title: { id: 'Plugin (skill + MCP)', en: 'Plugin (skill + MCP)' },
-        code: '/plugin marketplace add MukhamadRoni/simready-assets\n/plugin install simready-assets@simready-assets',
+        title: { id: '1. Di Claude Code: tambah marketplace', en: '1. In Claude Code: add the marketplace' },
+        code: '/plugin marketplace add MukhamadRoni/simready-assets',
       },
       {
-        title: { id: 'Atau hanya MCP', en: 'Or MCP only' },
+        title: { id: '2. Pasang plugin (skill + MCP)', en: '2. Install the plugin (skill + MCP)' },
+        code: '/plugin install simready-assets@simready-assets',
+      },
+      {
+        title: { id: 'Atau hanya MCP (di terminal)', en: 'Or MCP only (in a terminal)' },
         code: `claude mcp add simready -- uvx --from ${INSTALL_SPEC} simready-mcp`,
       },
     ],
@@ -79,7 +83,7 @@ export const CLIENTS = [
 
 export const STATS = [
   { key: 'usd', value: { id: '69,4 MB', en: '69.4 MB' }, label: { id: 'Unduhan USD (profil web)', en: 'USD download (web profile)' } },
-  { key: 'glb', value: { id: '9,75 MB', en: '9.75 MB' }, label: { id: 'convert_to_glb (--max-tex 512 --jpeg)', en: 'convert_to_glb (--max-tex 512 --jpeg)' } },
+  { key: 'glb', value: { id: '9,75 MB', en: '9.75 MB' }, label: { id: 'simready convert --max-tex 512 --jpeg', en: 'simready convert --max-tex 512 --jpeg' } },
   { key: 'meshopt', value: { id: '1,62 MB', en: '1.62 MB' }, label: { id: 'Setelah meshopt glTF-Transform', en: 'After glTF-Transform meshopt' } },
   { key: 'tris', value: { id: '289.480', en: '289,480' }, label: { id: 'Segitiga', en: 'Triangles' } },
   { key: 'size', value: { id: '2,10 × 1,17 × 2,07 m', en: '2.10 × 1.17 × 2.07 m' }, label: { id: 'Ukuran asli', en: 'Real size' } },
@@ -118,6 +122,7 @@ export const CONTENT = {
       loading: 'Memuat model 3D',
       viewerError: 'Pratinjau 3D tidak bisa ditampilkan di perangkat ini. Gambar di atas menunjukkan modelnya.',
       hint: 'Seret untuk memutar · scroll untuk zoom',
+      hintTouch: 'Seret untuk memutar · cubit untuk zoom',
     },
 
     install: {
@@ -129,7 +134,7 @@ export const CONTENT = {
       zip: 'Unduh zip skill',
       copy: 'Salin',
       copied: 'Tersalin',
-      manual: 'Tekan Ctrl+C',
+      manual: 'Sudah dipilih, salin manual',
       tabsLabel: 'Pilih klien',
     },
 
@@ -172,7 +177,8 @@ export const CONTENT = {
       code: 'Kode: MIT.',
       assets: 'Aset: CC BY 4.0 oleh NVIDIA.',
       credit: 'Cara mengkredit:',
-      creditLine: 'Model: NVIDIA SimReady (CC BY 4.0), dikonversi dengan simready-assets, dikompres dengan glTF-Transform',
+      creditLine: '3D assets: NVIDIA SimReady Assets (CC BY 4.0)',
+      creditNote: 'Jika Anda mengonversi atau mengubah aset, sebutkan juga hal itu.',
     },
   },
 
@@ -199,6 +205,7 @@ export const CONTENT = {
       loading: 'Loading 3D model',
       viewerError: "The 3D preview can't be shown on this device. The image above shows the model.",
       hint: 'Drag to rotate · scroll to zoom',
+      hintTouch: 'Drag to rotate · pinch to zoom',
     },
 
     install: {
@@ -210,7 +217,7 @@ export const CONTENT = {
       zip: 'Download skill zip',
       copy: 'Copy',
       copied: 'Copied',
-      manual: 'Press Ctrl+C',
+      manual: 'Selected, copy it',
       tabsLabel: 'Choose a client',
     },
 
@@ -253,7 +260,8 @@ export const CONTENT = {
       code: 'Code: MIT.',
       assets: 'Assets: CC BY 4.0 by NVIDIA.',
       credit: 'How to credit:',
-      creditLine: 'Model: NVIDIA SimReady (CC BY 4.0), converted with simready-assets, compressed with glTF-Transform',
+      creditLine: '3D assets: NVIDIA SimReady Assets (CC BY 4.0)',
+      creditNote: 'If you converted or modified the assets, say so too.',
     },
   },
 }

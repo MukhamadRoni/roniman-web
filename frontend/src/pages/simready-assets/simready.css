@@ -3,7 +3,7 @@
 
 .sr-tabs { min-width: 0; max-width: 100%; }
 .sr-tablist {
-  display: flex; gap: 6px; overflow-x: auto; scrollbar-width: thin;
+  display: flex; flex-wrap: wrap; gap: 6px;
   border-bottom: 1px solid var(--glass-dark-b); padding-bottom: 8px;
 }
 .sr-tab {
@@ -18,18 +18,18 @@
 
 .sr-panel { padding-top: 20px; display: grid; gap: 18px; min-width: 0; }
 .sr-block { min-width: 0; }
-.sr-block-head { display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: baseline; margin-bottom: 8px; }
+.sr-block-head { display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: center; margin-bottom: 8px; }
 .sr-block-title { color: var(--text-1); font: 500 14px var(--sans); }
 .sr-block-file { color: var(--sky); font: 12px var(--mono); overflow-wrap: anywhere; }
 .sr-code-wrap { position: relative; min-width: 0; }
 .sr-pre {
-  margin: 0; padding: 16px 84px 16px 16px; overflow-x: auto; max-width: 100%;
+  margin: 0; padding: 16px; overflow-x: auto; max-width: 100%;
   background: var(--glass-dark); border: 1px solid var(--glass-dark-b); border-radius: 12px;
   font: 13px/1.6 var(--mono); color: var(--text-1); tab-size: 2;
 }
 .sr-pre code { font: inherit; white-space: pre; }
 .sr-copy {
-  position: absolute; top: 8px; right: 8px; padding: 6px 12px; border-radius: 8px;
+  margin-left: auto; padding: 6px 12px; border-radius: 8px;
   background: var(--base-2); color: var(--text-1); border: 1px solid var(--glass-dark-b);
   font: 12px var(--mono); cursor: pointer;
 }
@@ -95,7 +95,7 @@
 .sr-credit { margin: 12px 0 0; color: var(--text-3); font-size: 13px; line-height: 1.5; }
 .sr-stats { padding: 22px; border-radius: 22px; min-width: 0; align-self: start; }
 .sr-stats dl { display: grid; gap: 14px; margin: 16px 0 0; }
-.sr-stat { display: flex; flex-direction: column-reverse; gap: 4px; padding-bottom: 14px; border-bottom: 1px solid var(--glass-dark-b); }
+.sr-stat { display: flex; flex-direction: column; gap: 4px; padding-bottom: 14px; border-bottom: 1px solid var(--glass-dark-b); }
 .sr-stat:last-child { border-bottom: 0; padding-bottom: 0; }
 .sr-stat dd { margin: 0; font-size: 26px; letter-spacing: -.02em; line-height: 1.1; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
 .sr-stat dt { font-size: 13px; color: var(--text-2); line-height: 1.45; overflow-wrap: anywhere; }
@@ -130,6 +130,7 @@
 
 .sr-license { padding: 24px; border-radius: 22px; max-width: 760px; }
 .sr-license p { margin: 0 0 6px; color: var(--text-2); font-size: 15px; }
+.sr-license .sr-credit-note { margin-top: 10px; font-size: 14px; }
 .sr-license .sr-credit-label { margin-top: 14px; color: var(--text-1); }
 .sr-license blockquote { margin: 8px 0 0; padding: 12px 14px; border-left: 3px solid var(--electric); background: var(--glass-dark); border-radius: 0 10px 10px 0; font: 13px/1.6 var(--mono); overflow-wrap: anywhere; }
 

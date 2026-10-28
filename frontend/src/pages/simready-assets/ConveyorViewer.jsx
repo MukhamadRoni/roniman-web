@@ -3,6 +3,8 @@ import { frameCamera } from './framing.js'
 
 const FOV = 40
 
+const isTouch = () => typeof window !== 'undefined' && !!window.matchMedia?.('(pointer: coarse)').matches
+
 export default function ConveyorViewer({ src, poster, c, alt = '' }) {
   const wrapRef = useRef(null)
   const canvasRef = useRef(null)
@@ -24,6 +26,11 @@ export default function ConveyorViewer({ src, poster, c, alt = '' }) {
     let controls = null
     let scene = null
     let envTarget = null
+    let inView = false
+    let ready = false
+    let dragging = false
+    let settleUntil = 0
+    let schedule = () => {}
 
     const fail = () => { if (!disposed) setStatus('error') }
 
@@ -56,7 +63,9 @@ export default function ConveyorViewer({ src, poster, c, alt = '' }) {
 
         scene = new THREE.Scene()
         const pmrem = new THREE.PMREMGenerator(renderer)
-        envTarget = pmrem.fromScene(new RoomEnvironment(), 0.04)
+        const room = new RoomEnvironment()
+        envTarget = pmrem.fromScene(room, 0.04)
+        room.dispose()
         scene.environment = envTarget.texture
         pmrem.dispose()
 
@@ -112,7 +121,15 @@ export default function ConveyorViewer({ src, poster, c, alt = '' }) {
         controls.autoRotateSpeed = 0.8
         controls.addEventListener('start', () => {
           controls.autoRotate = false
+          dragging = true
           setInteracted(true)
+          schedule()
+        })
+        controls.addEventListener('change', () => schedule())
+        controls.addEventListener('end', () => {
+          dragging = false
+          settleUntil = performance.now() + 1200 // let damping settle
+          schedule()
         })
 
         let framed = false
@@ -133,6 +150,7 @@ export default function ConveyorViewer({ src, poster, c, alt = '' }) {
           camera.position.copy(controls.target).addScaledVector(dir, d)
           camera.updateProjectionMatrix()
           framed = true
+          schedule()
         }
         resize()
         ro = new ResizeObserver(resize)
@@ -140,12 +158,19 @@ export default function ConveyorViewer({ src, poster, c, alt = '' }) {
 
         let first = true
         const tick = () => {
-          raf = requestAnimationFrame(tick)
+          raf = 0
+          if (disposed || !inView) return
           controls.update()
           renderer.render(scene, camera)
           if (first) { first = false; setStatus('ready') }
+          // Keep looping only while something is moving; otherwise render on demand.
+          if (controls.autoRotate || dragging || performance.now() < settleUntil) schedule()
         }
-        tick()
+        schedule = () => {
+          if (!raf && ready && inView && !disposed) raf = requestAnimationFrame(tick)
+        }
+        ready = true
+        schedule()
       } catch {
         fail()
       }
@@ -153,10 +178,18 @@ export default function ConveyorViewer({ src, poster, c, alt = '' }) {
 
     if ('IntersectionObserver' in window) {
       io = new IntersectionObserver((entries) => {
-        if (entries.some((e) => e.isIntersecting)) { io.disconnect(); start() }
+        inView = entries[entries.length - 1].isIntersecting
+        if (inView) {
+          if (!started) start()
+          else schedule()
+        } else if (raf) {
+          cancelAnimationFrame(raf)
+          raf = 0
+        }
       }, { rootMargin: '200px' })
       io.observe(wrap)
     } else {
+      inView = true
       start()
     }
 
@@ -186,13 +219,13 @@ export default function ConveyorViewer({ src, poster, c, alt = '' }) {
     <div className="sr-viewer-block">
       <div className="sr-viewer" ref={wrapRef} data-status={status}>
         <img className="sr-viewer-poster" src={poster} alt={alt} data-hidden={status === 'ready'} />
-        <canvas className="sr-viewer-canvas" ref={canvasRef} data-hidden={status !== 'ready'} />
+        <canvas className="sr-viewer-canvas" ref={canvasRef} role="img" aria-label={alt} data-hidden={status !== 'ready'} />
         {status === 'loading' && (
           <div className="sr-viewer-progress" role="status">
             {c.loading}{percent != null ? ` ${percent}%` : '…'}
           </div>
         )}
-        {status === 'ready' && !interacted && <div className="sr-viewer-hint">{c.hint}</div>}
+        {status === 'ready' && !interacted && <div className="sr-viewer-hint">{isTouch() && c.hintTouch ? c.hintTouch : c.hint}</div>}
       </div>
       {status === 'error' && <p className="sr-note sr-viewer-error" role="status">{c.viewerError}</p>}
     </div>

@@ -25,3 +25,10 @@ test('Claude Desktop tab says the MCP does the work', () => {
   const d = CLIENTS.find((c) => c.id === 'claude-desktop')
   assert.match(d.note.en, /MCP/); assert.match(d.note.en, /guidance/i)
 })
+test('no Claude Code block holds more than one slash-command line', () => {
+  const cc = CLIENTS.find((c) => c.id === 'claude-code')
+  for (const b of cc.blocks) assert.ok(b.code.split(/\r?\n/).filter((l) => l.startsWith('/')).length <= 1)
+})
+test('credit line is the generic README credit', () => {
+  for (const l of ['id', 'en']) assert.equal(CONTENT[l].license.creditLine, '3D assets: NVIDIA SimReady Assets (CC BY 4.0)')
+})

@@ -68,8 +68,8 @@ export default function SimreadyPage({ lang }) {
               <dl>
                 {STATS.map((s) => (
                   <div key={s.key} className="sr-stat">
-                    <dd>{s.value[lang]}</dd>
                     <dt>{s.label[lang]}</dt>
+                    <dd>{s.value[lang]}</dd>
                   </div>
                 ))}
               </dl>
@@ -151,6 +151,7 @@ export default function SimreadyPage({ lang }) {
             <p>{c.license.assets}</p>
             <p className="sr-credit-label">{c.license.credit}</p>
             <blockquote>{c.license.creditLine}</blockquote>
+            <p className="sr-credit-note">{c.license.creditNote}</p>
           </div>
         </div>
       </section>

@@ -37,10 +37,10 @@ function CodeBlock({ block, lang, c }) {
       <div className="sr-block-head">
         <span className="sr-block-title">{block.title[lang]}</span>
         {block.file && <span className="sr-block-file">{block.file}</span>}
+        <button type="button" className="sr-copy" data-state={state} onClick={onCopy}>{label}</button>
       </div>
       <div className="sr-code-wrap">
         <pre className="sr-pre"><code ref={codeRef}>{block.code}</code></pre>
-        <button type="button" className="sr-copy" data-state={state} onClick={onCopy}>{label}</button>
         <span className="sr-sr-only" role="status" aria-live="polite">{state === 'idle' ? '' : label}</span>
       </div>
     </div>
