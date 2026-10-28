@@ -37,3 +37,20 @@
 .sr-copy[data-state="copied"] { color: var(--mint); border-color: var(--mint); }
 .sr-copy[data-state="manual"] { color: var(--amber); border-color: var(--amber); }
 .sr-note { margin: 0; color: var(--text-2); font: 14px/1.6 var(--sans); }
+
+/* 3D viewer */
+.sr-viewer {
+  position: relative; width: 100%; height: clamp(280px, 50vw, 520px); overflow: hidden;
+  border-radius: 20px; border: 1px solid var(--glass-dark-b); background: var(--glass-dark);
+}
+.sr-viewer-poster, .sr-viewer-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.sr-viewer-poster { object-fit: cover; }
+.sr-viewer-canvas { touch-action: none; cursor: grab; }
+.sr-viewer-canvas:active { cursor: grabbing; }
+.sr-viewer-poster[data-hidden="true"], .sr-viewer-canvas[data-hidden="true"] { visibility: hidden; }
+.sr-viewer-progress, .sr-viewer-hint {
+  position: absolute; left: 50%; bottom: 14px; transform: translateX(-50%); max-width: calc(100% - 24px);
+  padding: 6px 12px; border-radius: 999px; background: rgba(0,0,0,.55); color: var(--text-1);
+  font: 12px var(--mono); pointer-events: none; text-align: center;
+}
+.sr-viewer-error { margin-top: 10px; }
